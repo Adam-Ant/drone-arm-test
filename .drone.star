@@ -27,7 +27,7 @@ def step(alpinever,arch,tags=[]):
             "ALPINE_TAG=%s" % alpinever,
           ],
           "repo": "%s-%s" % (repo_short_name, arch),
-          "buildkit": false,
+          "buildkit": False,
         },
       },
       {
