@@ -4,8 +4,8 @@ architectures = [ "amd64", "arm64" ]
 def main(ctx):
   builds = []
   for arch in architectures:
-    builds += step("3.14", arch)
-    builds += step("3.15", arch, ["latest"])
+    builds.append(step("3.14", arch))
+    builds.append(step("3.15", arch, ["latest"]))
   return builds
 
 def step(alpinever,arch,tags=[]):
