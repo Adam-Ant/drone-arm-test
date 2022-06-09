@@ -80,8 +80,8 @@ def publish(alpinever,depends,tags=[]):
         "image": "spritsail/docker-multiarch-publish",
         "pull": "always",
         "settings": {
-	  "from_repo": "192.168.1.5:5000/%s-%s" % (repo_short_name, alpinever)
-	  "from_template": "192.168.1.5:5000/%s-%s-ARCH" % (repo_short_name, alpinever)
+	  "from_repo": "192.168.1.5:5000/%s-%s" % (repo_short_name, alpinever),
+	  "from_template": "192.168.1.5:5000/%s-%s-ARCH" % (repo_short_name, alpinever),
           "to_repo": "docker.io/adamant/multiarch",
           "to_username": {"from_secret": "docker_username"},
           "to_password": {"from_secret": "docker_password"},
