@@ -45,6 +45,8 @@ def step(alpinever,arch,tags=[]):
         "pull": "always",
         "settings": {
           "repo": "192.168.1.5:5000/%s-%s-%s" % (repo_short_name, alpinever, arch),
+          "username": {"from_secret": "docker_username"},
+          "password": {"from_secret": "docker_password"},
         },
         "when": {
           "branch": ["master"],
