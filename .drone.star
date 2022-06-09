@@ -11,10 +11,10 @@ def step(alpinever,arch,tags=[]):
   return {
     "kind": "pipeline",
     "name": "build-%s-%s" % (alpinever, arch),
-    "platform": [
+    "platform": {
 	"os": "linux",
 	"arch": "%s" % arch,
-    ],
+    },
     "steps": [
       {
         "name": "build",
