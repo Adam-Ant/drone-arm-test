@@ -26,7 +26,7 @@ def step(alpinever,arch,tags=[]):
           "build_args": [
             "ALPINE_TAG=%s" % alpinever,
           ],
-          "repo": "%s-%s" % (repo_short_name, arch),
+          "repo": "%s-%s-%s" % (repo_short_name, alpinever, arch),
           "buildkit": False,
         },
       },
@@ -36,6 +36,7 @@ def step(alpinever,arch,tags=[]):
         "pull": "always",
         "settings": {
           "run": vertest + "su-exec nobody apk --version",
+          "repo": "%s-%s-%s" % (repo_short_name, alpinever, arch),
         },
       },
       {
@@ -43,10 +44,7 @@ def step(alpinever,arch,tags=[]):
         "image": "spritsail/docker-publish",
         "pull": "always",
         "settings": {
-          "repo": "spritsail/manifest-test",
-          "tags": [alpinever] + tags,
-          "username": {"from_secret": "docker_username"},
-          "password": {"from_secret": "docker_password"},
+          "repo": "192.168.1.5:5000/%s-%s-%s" % (repo_short_name, alpinever, arch),
         },
         "when": {
           "branch": ["master"],
