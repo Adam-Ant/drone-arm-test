@@ -1,12 +1,15 @@
 repo_short_name = "manifest-test"
+architectures = [ "amd64", "arm64" ]
 
 def main(ctx):
   return [
-    step("3.14","arm64"),
-    step("3.14","amd64"),
-    step("3.15","arm64",["latest"]),
-    step("3.15","amd64",["latest"]),
+    build("3.14"),
+    build("3.15",["latest"]),
   ]
+
+def build(version,tags=[]):
+  for arch in architectures:
+    return step(version,arch,tags)
 
 def step(alpinever,arch,tags=[]):
   vertest = "grep -q '%s' /etc/alpine-release && " % alpinever if alpinever != "edge" else ""
