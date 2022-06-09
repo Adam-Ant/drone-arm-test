@@ -2,15 +2,10 @@ repo_short_name = "manifest-test"
 architectures = [ "amd64", "arm64" ]
 
 def main(ctx):
-  return [
-    build("3.14"),
-    build("3.15",["latest"]),
-  ]
-
-def build(version,tags=[]):
   builds = []
   for arch in architectures:
-    builds += step(version,arch,tags)
+    builds += step("3.14", arch)
+    builds += step("3.15", arch, ["latest"])
   return builds
 
 def step(alpinever,arch,tags=[]):
