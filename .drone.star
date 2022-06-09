@@ -8,8 +8,10 @@ def main(ctx):
   ]
 
 def build(version,tags=[]):
+  builds = []
   for arch in architectures:
-    return step(version,arch,tags)
+    builds += step(version,arch,tags)
+  return builds
 
 def step(alpinever,arch,tags=[]):
   vertest = "grep -q '%s' /etc/alpine-release && " % alpinever if alpinever != "edge" else ""
