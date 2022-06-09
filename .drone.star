@@ -44,6 +44,7 @@ def step(alpinever,arch,tags=[]):
         "image": "spritsail/docker-publish",
         "pull": "always",
         "settings": {
+	  "from": "%s-%s-%s" % (repo_short_name, alpinever, arch),
           "repo": "192.168.1.5:5000/%s-%s-%s" % (repo_short_name, alpinever, arch),
           "username": {"from_secret": "docker_username"},
           "password": {"from_secret": "docker_password"},
