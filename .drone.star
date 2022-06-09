@@ -10,7 +10,7 @@ def step(alpinever,arch,tags=[]):
   vertest = "grep -q '%s' /etc/alpine-release && " % alpinever if alpinever != "edge" else ""
   return {
     "kind": "pipeline",
-    "name": "build-%s-%s" % (alpinever, arch),
+    "name": "build-%s" % alpinever,
     "platform": {
 	"os": "linux",
 	"arch": "%s" % arch,
