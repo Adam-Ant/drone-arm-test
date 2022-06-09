@@ -1,0 +1,22 @@
+export PAGER='/usr/bin/less'
+export EDITOR='/usr/bin/vi'
+export PS1='\e[1;36m\u@\h\e[0m \e[0;32m$(pwd | sed -E '"'s@^'\$HOME'@~@;s@(.*)/@\\1%#@;s@((^|/)\\.?[^/%]{1})[^/%]*@\\1@g;s@(.*)%#@\\1/@')"'\e[0m> '
+
+# Source configuration files from /etc/profile.d
+for i in /etc/profile.d/*.sh ; do
+	if [ -r "$i" ]; then
+		. $i
+	fi
+	unset i
+done
+
+# Common interactive aliases
+alias ls='ls --color=auto -Fh'
+alias ll='ls -l'
+alias la='ls -la'
+
+alias cp='cp -i'
+alias mv='mv -i'
+alias rm='rm -i'
+alias md='mkdir'
+alias rd='rmdir'
