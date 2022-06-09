@@ -9,7 +9,7 @@ def main(ctx):
   for arch in architectures:
     for v in versions:
       builds.append(step(v, arch))
-      depends_on.append("%s-%s-%s" % (repo_short_name, alpinever, arch))
+      depends_on.append("%s-%s-%s" % (repo_short_name, v, arch))
 
   # Temporary bodge for latest tag - should be for loop
   builds.append(publish("3.14", depends_on))
