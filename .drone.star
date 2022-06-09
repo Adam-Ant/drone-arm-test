@@ -3,7 +3,7 @@ def main(ctx):
     step("3.14","arm64"),
     step("3.14","amd64"),
     step("3.15","arm64",["latest"]),
-    step("3.15","amd64,"["latest"]),
+    step("3.15","amd64",["latest"]),
   ]
 
 def step(alpinever,arch,tags=[]):
