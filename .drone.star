@@ -68,7 +68,7 @@ def step(alpinever,arch):
 def publish(alpinever,depends,tags=[]):
   return {
     "kind": "pipeline",
-    "name": "%s-%s-publish" % (repo_short_name, alpinever, arch),
+    "name": "%s-%s-publish" % (repo_short_name, alpinever),
     "depends_on": depends,
     "steps": [
       {
