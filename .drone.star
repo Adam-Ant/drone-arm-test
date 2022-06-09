@@ -1,3 +1,5 @@
+repo_short_name = "manifest-test"
+
 def main(ctx):
   return [
     step("3.14","arm64"),
@@ -10,7 +12,7 @@ def step(alpinever,arch,tags=[]):
   vertest = "grep -q '%s' /etc/alpine-release && " % alpinever if alpinever != "edge" else ""
   return {
     "kind": "pipeline",
-    "name": "build-%s-%s" % (alpinever, arch),
+    "name": "%s-%s-%s" % (repo,short,name, alpinever, arch),
     "platform": {
 	"os": "linux",
 	"arch": arch,
@@ -24,6 +26,7 @@ def step(alpinever,arch,tags=[]):
           "build_args": [
             "ALPINE_TAG=%s" % alpinever,
           ],
+          "repo": "%s-%s" % (repo_short_name, arch)
         },
       },
       {
