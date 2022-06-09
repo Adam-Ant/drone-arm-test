@@ -13,7 +13,7 @@ def step(alpinever,arch,tags=[]):
     "name": "build-%s" % alpinever,
     "platform": {
 	"os": "linux",
-	"arch": "%s" % arch,
+	"arch": arch,
     },
     "steps": [
       {
