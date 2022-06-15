@@ -1,6 +1,6 @@
 repo_short_name = "manifest-test"
 architectures = [ "amd64", "arm64" ]
-versions = [ "3.15" ]
+versions = [ "3.14", "3.15", "3.16" ]
 
 def main(ctx):
   builds = []
@@ -10,9 +10,13 @@ def main(ctx):
     for v in versions:
       builds.append(step(v, arch))
       depends_on.append("%s-%s-%s" % (repo_short_name, v, arch))
+    
+  for v in versions:
+    latest = []
+    if v == versions[:-1]:
+      latest = [ "latest" ]
+    builds.append(publish(v, depends_on, latest))
 
-  # Temporary bodge for latest tag - should be for loop
-  builds.append(publish("3.15", depends_on, ["latest"]))
   return builds
 
 def step(alpinever,arch):
@@ -75,13 +79,11 @@ def publish(alpinever,depends,tags=[]):
         "image": "spritsail/docker-multiarch-publish",
         "pull": "always",
         "settings": {
-	  "from_repo": "192.168.1.5:5000/%s-%s" % (repo_short_name, alpinever),
-	  "from_template": "192.168.1.5:5000/%s-%s-ARCH:latest" % (repo_short_name, alpinever),
-          "to_repo": "docker.io/adamant/multiarch",
-          "to_username": {"from_secret": "docker_username"},
-          "to_password": {"from_secret": "docker_password"},
+	  "src_template": "192.168.1.5:5000/%s-%s-ARCH:latest" % (repo_short_name, alpinever),
+          "dest_repo": "docker.io/adamant/multiarch",
+          "dest_username": {"from_secret": "docker_username"},
+          "dest_password": {"from_secret": "docker_password"},
           "tags": [alpinever] + tags,
-	  "insecure": "yesplz",
         },
         "when": {
           "branch": ["master"],
