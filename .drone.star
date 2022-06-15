@@ -1,6 +1,6 @@
 repo_short_name = "manifest-test"
-architectures = [ "amd64", "arm64" ]
-versions = [ "3.14", "3.15" ]
+architectures = [  "arm64" ]
+versions = [ "3.15" ]
 
 def main(ctx):
   builds = []
@@ -12,7 +12,6 @@ def main(ctx):
       depends_on.append("%s-%s-%s" % (repo_short_name, v, arch))
 
   # Temporary bodge for latest tag - should be for loop
-  builds.append(publish("3.14", depends_on))
   builds.append(publish("3.15", depends_on, ["latest"]))
   return builds
 
