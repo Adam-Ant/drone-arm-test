@@ -1,5 +1,5 @@
 repo_short_name = "manifest-test"
-architectures = [  "arm64" ]
+architectures = [ "amd64", "arm64" ]
 versions = [ "3.15" ]
 
 def main(ctx):
