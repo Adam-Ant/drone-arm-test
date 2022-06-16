@@ -1,6 +1,6 @@
 repo_short_name = "manifest-test"
 architectures = ["amd64", "arm64"]
-versions = ["edge","3.14", "3.15", "3.16"]
+versions = [ "3.16"]
 
 def main(ctx):
   builds = []
@@ -14,7 +14,7 @@ def main(ctx):
   for v in versions:
     latest = []
     if v == versions[:-1]:
-      latest = [ "latest" ]
+      latest = [ "latest", "butts", "athirdtag" ]
     builds.append(publish(v, depends_on, latest))
 
   return builds
@@ -89,7 +89,7 @@ def publish(alpinever,depends,tags=[]):
           "dest_username": {"from_secret": "docker_username"},
           "dest_password": {"from_secret": "docker_password"},
           "tags": [alpinever] + tags,
- 	  "debug": "nothing else has worked",
+ 	  "debug": "true",
         },
         "when": {
           "branch": ["master"],
