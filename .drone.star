@@ -1,6 +1,6 @@
 repo_short_name = "manifest-test"
 architectures = ["amd64", "arm64"]
-versions = [ "3.16"]
+versions = ["edge","3.14", "3.15", "3.16"]
 
 def main(ctx):
   builds = []
