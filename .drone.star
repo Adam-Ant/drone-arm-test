@@ -89,6 +89,7 @@ def publish(alpinever,depends,tags=[]):
           "dest_username": {"from_secret": "docker_username"},
           "dest_password": {"from_secret": "docker_password"},
           "tags": [alpinever] + tags,
+ 	  "debug": "nothing else has worked",
         },
         "when": {
           "branch": ["master"],
