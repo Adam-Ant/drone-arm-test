@@ -81,7 +81,7 @@ def publish(alpinever,depends,tags=[]):
         "image": "spritsail/docker-multiarch-publish",
         "pull": "always",
         "settings": {
-          "src_template": "%s-%s-ARCH" % (repo_short_name, alpinever),
+          "src_template": "%s-%s-ARCH:latest" % (repo_short_name, alpinever),
 	  "src_username": {"from_secret": "registry_username"},
 	  "src_password": {"from_secret": "registry_password"},
           "src_registry": {"from_secret": "registry_url"},
