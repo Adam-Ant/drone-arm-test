@@ -21,7 +21,7 @@ def main(ctx):
 
 def step(alpinever,arch):
   vertest = "grep -q '%s' /etc/alpine-release && " % alpinever if alpinever != "edge" else ""
-  stepimage = "%s-%s:%s" % (repo_short_name, alpinever, arch)
+  stepimage = "%s-%s-%s" % (repo_short_name, alpinever, arch)
   return {
     "kind": "pipeline",
     "name": "%s-%s-%s" % (repo_short_name, alpinever, arch),
