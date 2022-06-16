@@ -56,6 +56,7 @@ def step(alpinever,arch):
         "image": "spritsail/docker-publish",
         "pull": "always",
         "settings": {
+          "from": stepimage,
           "repo": stepimage,
           "registry": {"from_secret": "registry_url"},
           "username": {"from_secret": "registry_username"},
