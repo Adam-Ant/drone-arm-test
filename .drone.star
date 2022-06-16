@@ -21,6 +21,7 @@ def main(ctx):
 
 def step(alpinever,arch):
   vertest = "grep -q '%s' /etc/alpine-release && " % alpinever if alpinever != "edge" else ""
+  step-image = "%s-%s:%s" % (repo_short_name, alpinever, arch)
   return {
     "kind": "pipeline",
     "name": "%s-%s-%s" % (repo_short_name, alpinever, arch),
@@ -37,7 +38,7 @@ def step(alpinever,arch):
           "build_args": [
             "ALPINE_TAG=%s" % alpinever,
           ],
-          "repo": "%s-%s:%s" % (repo_short_name, alpinever, arch),
+          "repo": step-image,
           "buildkit": False,
         },
       },
@@ -47,7 +48,7 @@ def step(alpinever,arch):
         "pull": "always",
         "settings": {
           "run": vertest + "su-exec nobody apk --version",
-          "repo": "%s-%s:%s" % (repo_short_name, alpinever, arch),
+          "repo": step-image,
         },
       },
       {
@@ -55,11 +56,10 @@ def step(alpinever,arch):
         "image": "spritsail/docker-publish",
         "pull": "always",
         "settings": {
-          "from": "%s-%s:%s" % (repo_short_name, alpinever, arch),
-          "repo": "%s-%s:%s" % (repo_short_name, alpinever, arch),
-          "registry": {"from_secret": "docker_registry"},
-          "username": {"from_secret": "docker_username"},
-          "password": {"from_secret": "docker_password"},
+          "repo": step-image,
+          "registry": {"from_secret": "registry_url"},
+          "username": {"from_secret": "registry_username"},
+          "password": {"from_secret": "registry_password"},
         },
         "when": {
           "branch": ["master"],
@@ -80,12 +80,13 @@ def publish(alpinever,depends,tags=[]):
         "image": "spritsail/docker-multiarch-publish",
         "pull": "always",
         "settings": {
-          "src_template": "%s-%s:ARCH" % (repo_short_name, alpinever),
-          "src_registry": {"from_secret": "docker_registry"},
+          "src_template": "%s-%s-ARCH" % (repo_short_name, alpinever),
+	  "src_username": {"from_secret": "registry_username"},
+	  "src_password": {"from_secret": "registry_password"},
+          "src_registry": {"from_secret": "registry_url"},
           "dest_repo": "docker.io/adamant/multiarch",
           "dest_username": {"from_secret": "docker_username"},
           "dest_password": {"from_secret": "docker_password"},
-          "insecure": "true",
           "tags": [alpinever] + tags,
         },
         "when": {
