@@ -21,7 +21,7 @@ def main(ctx):
 
 def step(alpinever,arch):
   vertest = "grep -q '%s' /etc/alpine-release && " % alpinever if alpinever != "edge" else ""
-  step-image = "%s-%s:%s" % (repo_short_name, alpinever, arch)
+  stepimage = "%s-%s:%s" % (repo_short_name, alpinever, arch)
   return {
     "kind": "pipeline",
     "name": "%s-%s-%s" % (repo_short_name, alpinever, arch),
@@ -38,7 +38,7 @@ def step(alpinever,arch):
           "build_args": [
             "ALPINE_TAG=%s" % alpinever,
           ],
-          "repo": step-image,
+          "repo": stepimage,
           "buildkit": False,
         },
       },
@@ -48,7 +48,7 @@ def step(alpinever,arch):
         "pull": "always",
         "settings": {
           "run": vertest + "su-exec nobody apk --version",
-          "repo": step-image,
+          "repo": stepimage,
         },
       },
       {
@@ -56,7 +56,7 @@ def step(alpinever,arch):
         "image": "spritsail/docker-publish",
         "pull": "always",
         "settings": {
-          "repo": step-image,
+          "repo": stepimage,
           "registry": {"from_secret": "registry_url"},
           "username": {"from_secret": "registry_username"},
           "password": {"from_secret": "registry_password"},
