@@ -13,7 +13,7 @@ def main(ctx):
     
   for v in versions:
     latest = []
-    if v == versions[:-1]:
+    if v == versions[-1]:
       latest = [ "latest", "butts", "athirdtag" ]
     builds.append(publish(v, depends_on, latest))
 
